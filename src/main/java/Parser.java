@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Parser {
 
-    private final String OUTPUT_DIRECTORY = "src/main/resources/output";
+    private final String OUTPUT_DIRECTORY = "src/main/resources/output/";
 
     public Parser(String fileName) {
         final Scanner in;
