@@ -2,6 +2,7 @@ package util;
 
 import lombok.Value;
 import model.Car;
+import model.Intersection;
 import model.Street;
 
 import java.util.List;
@@ -24,5 +25,6 @@ public class Input {
 
     List<Street> streets;
     List<Car> cars;
+    List<Intersection> intersections;
 
 }

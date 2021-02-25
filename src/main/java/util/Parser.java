@@ -1,6 +1,8 @@
 package util;
 
 import model.Car;
+import model.Intersection;
+import model.Schedule;
 import model.Street;
 import strategy.AbstractStrategy;
 
@@ -28,12 +30,29 @@ public class Parser {
         final Integer F = in.nextInt();
 
         final Map<String, Street> streets = new HashMap<>();
+        final List<Integer> idIntersections = new ArrayList<>();
+        final Map<Integer, Intersection> intersections = new HashMap<>();
         for (int i = 0; i < S; i++) {
+            // Streets
             final Integer B = in.nextInt();
             final Integer E = in.nextInt();
             final String streetName = in.next();
             final Integer L = in.nextInt();
-            streets.put(streetName, new Street(B, E, streetName, L));
+            final Street street = new Street(B, E, streetName, L);
+            streets.put(streetName, street);
+
+            // Intersections
+            if (!idIntersections.contains(B)) {
+                intersections.put(B, new Intersection(B, new ArrayList<>(), new ArrayList<>()));
+                idIntersections.add(B);
+            }
+            intersections.get(B).getInputStreets().add(street);
+
+            if (!idIntersections.contains(E)) {
+                intersections.put(E, new Intersection(E, new ArrayList<>(), new ArrayList<>()));
+                idIntersections.add(E);
+            }
+            intersections.get(E).getOutputStreets().add(street);
         }
 
         final List<Car> cars = new ArrayList<>();
@@ -48,7 +67,7 @@ public class Parser {
 
         in.close();
 
-        return new Input(inputName, D, I, S, V, F, new ArrayList<>(streets.values()), cars);
+        return new Input(inputName, D, I, S, V, F, new ArrayList<>(streets.values()), cars, new ArrayList<>(intersections.values()));
     }
 
     public void writeResult(final AbstractStrategy strategy) {
@@ -62,17 +81,17 @@ public class Parser {
             final FileOutputStream fos = new FileOutputStream(file);
             final BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
 
-            // TODO writing output to file
-//            bw.write(Integer.toString(result.size()));
-//            bw.newLine();
-//            for (int i = 0; i < result.size(); i++) {
-//                final LibraryOutput libraryOutput = result.get(i);
-//                bw.write(libraryOutput.getId() + " " + booksOutput.size());
+            final Integer numberIntersections = strategy.getResult().size();
+            bw.write(numberIntersections);
+            bw.newLine();
+            for (int i = 0; i < numberIntersections; i++) {
+                final Schedule schedule = strategy.getResult().get(i);
+            //    bw.write(schedule.getIntersection());
 //                bw.newLine();
 //                String lineBook = booksOutput.get(0).toString();
 //                bw.write(lineBook);
 //                bw.newLine();
-//            }
+            }
             bw.close();
         } catch (final IOException e) {
             e.printStackTrace();
