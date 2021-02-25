@@ -6,9 +6,7 @@ import java.io.*;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Parser {
 
@@ -27,28 +25,28 @@ public class Parser {
         final Integer V = in.nextInt();
         final Integer F = in.nextInt();
 
-        final List<Street> streets = new ArrayList<>();
+        final Map<String, Street> streets = new HashMap<>();
         for (int i = 0; i < S; i++) {
             final Integer B = in.nextInt();
             final Integer E = in.nextInt();
             final String streetName = in.next();
             final Integer L = in.nextInt();
-            streets.add(new Street(B, E, streetName, L));
+            streets.put(streetName, new Street(B, E, streetName, L));
         }
 
         final List<Car> cars = new ArrayList<>();
         for (int i = 0; i < V; i++) {
             final Integer P = in.nextInt();
-            final List<String> path = new ArrayList<>();
+            final List<Street> path = new ArrayList<>();
             for (int j = 0; j < P; j++) {
-                path.add(in.next());
+                path.add(streets.get(in.next()));
             }
             cars.add(new Car(P, path));
         }
 
         in.close();
 
-        return new Input(inputName, D, I, S, V, F, streets, cars);
+        return new Input(inputName, D, I, S, V, F, new ArrayList<>(streets.values()), cars);
     }
 
     public void writeResult(final AbstractStrategy strategy) {

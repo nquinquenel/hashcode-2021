@@ -9,6 +9,6 @@ public class Car {
 
     // P
     Integer streetsNumber;
-    List<String> path;
+    List<Street> path;
 
 }
