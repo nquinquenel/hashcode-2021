@@ -46,13 +46,13 @@ public class Parser {
                 intersections.put(B, new Intersection(B, new ArrayList<>(), new ArrayList<>()));
                 idIntersections.add(B);
             }
-            intersections.get(B).getInputStreets().add(street);
+            intersections.get(B).getOutputStreets().add(street);
 
             if (!idIntersections.contains(E)) {
                 intersections.put(E, new Intersection(E, new ArrayList<>(), new ArrayList<>()));
                 idIntersections.add(E);
             }
-            intersections.get(E).getOutputStreets().add(street);
+            intersections.get(E).getInputStreets().add(street);
         }
 
         final List<Car> cars = new ArrayList<>();
@@ -71,7 +71,6 @@ public class Parser {
     }
 
     public void writeResult(final AbstractStrategy strategy) {
-        //final List<LibraryOutput> result = strategy.getResult();
         final OffsetDateTime now = OffsetDateTime.now(ZoneId.systemDefault());
         final String nowString = now.format(DateTimeFormatter.ofPattern("yyyy_MM_dd_HH_mm_ss"));
         final String outputFileName = strategy.getName() + "_" + inputName + "_" + nowString + ".txt";
@@ -86,11 +85,15 @@ public class Parser {
             bw.newLine();
             for (int i = 0; i < numberIntersections; i++) {
                 final Schedule schedule = strategy.getResult().get(i);
-            //    bw.write(schedule.getIntersection());
-//                bw.newLine();
-//                String lineBook = booksOutput.get(0).toString();
-//                bw.write(lineBook);
-//                bw.newLine();
+                bw.write(schedule.getIntersection().getId());
+                bw.newLine();
+
+                bw.write(schedule.getStreetGreenLightDuration().size());
+
+                for (Map.Entry<Street, Integer> entry : schedule.getStreetGreenLightDuration().entrySet()) {
+                    bw.newLine();
+                    bw.write(entry.getKey().getName() + " " + entry.getValue());
+                }
             }
             bw.close();
         } catch (final IOException e) {
