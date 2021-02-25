@@ -1,8 +1,10 @@
 package model;
 
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-@Value
+@Data
+@AllArgsConstructor
 public class Street {
 
     // B
@@ -12,5 +14,15 @@ public class Street {
     String name;
     // L
     Integer time;
+    Integer lightOnSince;
+//    List<Car> carsWaiting;
+//
+//    public void incrementCarsWaiting(Car car) {
+//        carsWaiting.add(car);
+//    }
+//
+//    public void decreaseCarsWaiting() {
+//        carsWaiting.remove(0);
+//    }
 
 }
