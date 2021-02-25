@@ -1,13 +1,17 @@
+import strategy.AbstractStrategy;
+import util.Parser;
+
+import java.io.FileNotFoundException;
+
 public class Main {
+    public static void main(final String[] args) throws FileNotFoundException {
+        final String inputName = "a_example";
 
-    public static void main(final String[] args) {
-        final String input = "a_example";
-
-        final Parser parser = new Parser("a_example");
-        final Strategy strategy_naive = new Strategy("naive") {
+        final Parser parser = new Parser(inputName);
+        final AbstractStrategy strategy_naive = new AbstractStrategy("naive", parser.parseInput()) {
         };
 
-        parser.writeResult(input, strategy_naive);
+        parser.writeResult(strategy_naive);
     }
 
 }

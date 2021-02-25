@@ -1,3 +1,7 @@
+package util;
+
+import strategy.AbstractStrategy;
+
 import java.io.*;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
@@ -6,31 +10,34 @@ import java.util.Scanner;
 
 public class Parser {
 
-    private final String OUTPUT_DIRECTORY = "src/main/resources/output/";
+    private final String inputName;
 
-    public Parser(String fileName) {
-        final Scanner in;
-
-        try {
-            in = new Scanner(new File("src/main/resources/" + fileName));
-
-            in.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+    public Parser(final String inputName) {
+        this.inputName = inputName;
     }
 
-    public void writeResult(final String inputChosen,
-                             final Strategy strategy) {
+    public Input parseInput() throws FileNotFoundException {
+        final Scanner in = new Scanner(new File("src/main/resources/input/" + inputName));
+
+        // TODO parsing input
+
+        in.close();
+
+        return new Input(inputName);
+    }
+
+    public void writeResult(final AbstractStrategy strategy) {
         //final List<LibraryOutput> result = strategy.getResult();
         final OffsetDateTime now = OffsetDateTime.now(ZoneId.systemDefault());
         final String nowString = now.format(DateTimeFormatter.ofPattern("yyyy_MM_dd_HH_mm_ss"));
-        final String outputFileName = strategy.getName() + "_" + inputChosen + "_" + nowString + ".txt";
+        final String outputFileName = strategy.getName() + "_" + inputName + "_" + nowString + ".txt";
         try {
-            final File file = new File(OUTPUT_DIRECTORY + outputFileName);
+            final File file = new File("src/main/resources/output/" + outputFileName);
             file.createNewFile();
             final FileOutputStream fos = new FileOutputStream(file);
             final BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
+
+            // TODO writing output to file
 //            bw.write(Integer.toString(result.size()));
 //            bw.newLine();
 //            for (int i = 0; i < result.size(); i++) {
@@ -42,7 +49,7 @@ public class Parser {
 //                bw.newLine();
 //            }
             bw.close();
-        } catch (IOException e) {
+        } catch (final IOException e) {
             e.printStackTrace();
         }
     }
