@@ -1,6 +1,8 @@
 package util;
 
 import lombok.Value;
+import model.Car;
+import model.Street;
 
 import java.util.List;
 

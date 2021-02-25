@@ -1,5 +1,7 @@
 package util;
 
+import model.Car;
+import model.Street;
 import strategy.AbstractStrategy;
 
 import java.io.*;
