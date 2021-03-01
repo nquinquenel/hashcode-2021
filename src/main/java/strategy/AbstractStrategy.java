@@ -12,8 +12,10 @@ import java.util.List;
 @Getter
 @ToString
 public abstract class AbstractStrategy {
+
     String name;
     Input input;
 
     public abstract List<Schedule> getResult();
+
 }

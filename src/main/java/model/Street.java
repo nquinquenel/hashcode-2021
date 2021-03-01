@@ -8,21 +8,12 @@ import lombok.Data;
 public class Street {
 
     // B
-    Integer startIntersection;
+    private Integer startIntersection;
     // E
-    Integer endIntersection;
-    String name;
+    private Integer endIntersection;
+    private String name;
     // L
-    Integer time;
-    Integer lightOnSince;
-//    List<Car> carsWaiting;
-//
-//    public void incrementCarsWaiting(Car car) {
-//        carsWaiting.add(car);
-//    }
-//
-//    public void decreaseCarsWaiting() {
-//        carsWaiting.remove(0);
-//    }
+    private Integer time;
+    private Integer lightOnSince;
 
 }

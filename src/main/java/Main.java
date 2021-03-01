@@ -1,5 +1,5 @@
 import strategy.AbstractStrategy;
-import strategy.StrategyNicoCount;
+import strategy.ProportionalityStrategy;
 import util.Parser;
 
 import java.io.FileNotFoundException;
@@ -12,7 +12,7 @@ public class Main {
 
         for (String s : inputName) {
             final Parser parser = new Parser(s);
-            final AbstractStrategy strategy_naive = new StrategyNicoCount(parser.parseInput());
+            final AbstractStrategy strategy_naive = new ProportionalityStrategy(parser.parseInput());
 
             parser.writeResult(strategy_naive);
         }

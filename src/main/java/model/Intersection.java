@@ -9,13 +9,9 @@ import java.util.List;
 @AllArgsConstructor
 public class Intersection {
 
-    Integer id;
-    List<Street> inputStreets;
-    List<Street> outputStreets;
-    Street currentLight;
-
-//    public Street getMostPopulatedStreet() {
-//        return outputStreets.stream().max(Comparator.comparing(s -> s.getCarsWaiting().size())).get();
-//    }
+    private Integer id;
+    private List<Street> inputStreets;
+    private List<Street> outputStreets;
+    private Street currentLight;
 
 }

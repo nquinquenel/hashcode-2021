@@ -94,7 +94,7 @@ public class Parser {
                 bw.newLine();
 
                 for (Map.Entry<Street, Integer> entry : schedule.getStreetGreenLightDuration().entrySet()) {
-                    bw.write(entry.getKey().getName() + " " + String.valueOf(entry.getValue()));
+                    bw.write(entry.getKey().getName() + " " + entry.getValue());
                     bw.newLine();
                 }
             }

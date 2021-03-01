@@ -8,11 +8,13 @@ import util.Input;
 
 import java.util.*;
 
-public class StrategyNicoCount extends AbstractStrategy {
+public class ProportionalityStrategy extends AbstractStrategy {
 
-    List<Schedule> results;
+    private final static int DEFAULT_TIME = 1;
 
-    public StrategyNicoCount(Input input) {
+    private List<Schedule> results;
+
+    public ProportionalityStrategy(Input input) {
         super("StrategyNicoCount", input);
         strategy();
     }
@@ -25,21 +27,21 @@ public class StrategyNicoCount extends AbstractStrategy {
     private void strategy() {
         results = new ArrayList<>();
 
-        Map<Street, Integer> nbPassage = new HashMap<>();
+        final Map<Street, Integer> nbPassage = new HashMap<>();
         for (Street street : input.getStreets()) {
             nbPassage.put(street, 0);
         }
 
-        for (Car car : input.getCars()) {
-            for (Street street : car.getPath()) {
+        for (final Car car : input.getCars()) {
+            for (final Street street : car.getPath()) {
                 nbPassage.put(street, nbPassage.get(street) + 1);
             }
         }
 
-        for (Intersection intersection : input.getIntersections()) {
-            Schedule schedule = new Schedule(intersection, new LinkedHashMap<>());
+        for (final Intersection intersection : input.getIntersections()) {
+            final Schedule schedule = new Schedule(intersection, new LinkedHashMap<>());
+            final List<Street> streetWithPassage = new ArrayList<>();
             int totalPassage = 0;
-            List<Street> streetWithPassage = new ArrayList<>();
 
             for (Street street : intersection.getInputStreets()) {
                 totalPassage += nbPassage.get(street);
@@ -49,15 +51,15 @@ public class StrategyNicoCount extends AbstractStrategy {
             }
 
             for (Street street : streetWithPassage) {
-                Double pourcentage = (double) nbPassage.get(street) / totalPassage;
-                Double tempsVert = 4 * pourcentage;
+                final double percentage = (double) nbPassage.get(street) / totalPassage;
+                final double tempsVert = DEFAULT_TIME * percentage;
                 schedule.getStreetGreenLightDuration().put(street, (int) (tempsVert + 1));
             }
+
             if (schedule.getStreetGreenLightDuration().size() > 0) {
                 results.add(schedule);
             }
         }
-        System.out.println("toto");
     }
 
 }
