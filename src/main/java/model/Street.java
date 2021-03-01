@@ -1,16 +1,19 @@
 package model;
 
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-@Value
+@Data
+@AllArgsConstructor
 public class Street {
 
     // B
-    Integer startIntersection;
+    private Integer startIntersection;
     // E
-    Integer endIntersection;
-    String name;
+    private Integer endIntersection;
+    private String name;
     // L
-    Integer time;
+    private Integer time;
+    private Integer lightOnSince;
 
 }

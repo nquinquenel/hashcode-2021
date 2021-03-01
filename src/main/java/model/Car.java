@@ -1,14 +1,19 @@
 package model;
 
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 import java.util.List;
 
-@Value
+@Data
+@AllArgsConstructor
 public class Car {
 
     // P
-    Integer streetsNumber;
-    List<Street> path;
+    private Integer streetsNumber;
+    private List<Street> path;
+    private Street currentStreet;
+    private Integer currentTimeOnStreet;
+    private Integer currentIndexPath;
 
 }

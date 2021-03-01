@@ -38,18 +38,18 @@ public class Parser {
             final Integer E = in.nextInt();
             final String streetName = in.next();
             final Integer L = in.nextInt();
-            final Street street = new Street(B, E, streetName, L);
+            final Street street = new Street(B, E, streetName, L, 0);
             streets.put(streetName, street);
 
             // Intersections
             if (!idIntersections.contains(B)) {
-                intersections.put(B, new Intersection(B, new ArrayList<>(), new ArrayList<>()));
+                intersections.put(B, new Intersection(B, new ArrayList<>(), new ArrayList<>(), null));
                 idIntersections.add(B);
             }
             intersections.get(B).getOutputStreets().add(street);
 
             if (!idIntersections.contains(E)) {
-                intersections.put(E, new Intersection(E, new ArrayList<>(), new ArrayList<>()));
+                intersections.put(E, new Intersection(E, new ArrayList<>(), new ArrayList<>(), null));
                 idIntersections.add(E);
             }
             intersections.get(E).getInputStreets().add(street);
@@ -60,9 +60,11 @@ public class Parser {
             final Integer P = in.nextInt();
             final List<Street> path = new ArrayList<>();
             for (int j = 0; j < P; j++) {
-                path.add(streets.get(in.next()));
+                final String streetName = in.next();
+                path.add(streets.get(streetName));
             }
-            cars.add(new Car(P, path));
+            Car car = new Car(P, path, path.get(0), 0, 0);
+            cars.add(car);
         }
 
         in.close();
@@ -81,18 +83,19 @@ public class Parser {
             final BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
 
             final Integer numberIntersections = strategy.getResult().size();
-            bw.write(numberIntersections);
+            bw.write(String.valueOf(numberIntersections));
             bw.newLine();
             for (int i = 0; i < numberIntersections; i++) {
                 final Schedule schedule = strategy.getResult().get(i);
-                bw.write(schedule.getIntersection().getId());
+                bw.write(String.valueOf(schedule.getIntersection().getId()));
                 bw.newLine();
 
-                bw.write(schedule.getStreetGreenLightDuration().size());
+                bw.write(String.valueOf(schedule.getStreetGreenLightDuration().size()));
+                bw.newLine();
 
                 for (Map.Entry<Street, Integer> entry : schedule.getStreetGreenLightDuration().entrySet()) {
-                    bw.newLine();
                     bw.write(entry.getKey().getName() + " " + entry.getValue());
+                    bw.newLine();
                 }
             }
             bw.close();

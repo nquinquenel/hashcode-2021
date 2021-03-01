@@ -1,23 +1,21 @@
-import model.Schedule;
 import strategy.AbstractStrategy;
+import strategy.ProportionalityStrategy;
 import util.Parser;
 
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.List;
 
 public class Main {
     public static void main(final String[] args) throws FileNotFoundException {
-        final String inputName = "a.txt";
+        final List<String> inputName = Arrays.asList("b.txt", "c.txt", "d.txt", "e.txt", "f.txt");
 
-        final Parser parser = new Parser(inputName);
-        final AbstractStrategy strategy_naive = new AbstractStrategy("naive", parser.parseInput()) {
-            @Override
-            public List<Schedule> getResult() {
-                return null;
-            }
-        };
+        for (String s : inputName) {
+            final Parser parser = new Parser(s);
+            final AbstractStrategy strategy_naive = new ProportionalityStrategy(parser.parseInput());
 
-        parser.writeResult(strategy_naive);
+            parser.writeResult(strategy_naive);
+        }
     }
 
 }

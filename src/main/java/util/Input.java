@@ -1,30 +1,32 @@
 package util;
 
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import model.Car;
 import model.Intersection;
 import model.Street;
 
 import java.util.List;
 
-@Value
+@Data
+@AllArgsConstructor
 public class Input {
 
-    String name;
+    private String name;
 
     // D
-    Integer totalDuration;
+    private Integer totalDuration;
     // I
-    Integer numberIntersections;
+    private Integer numberIntersections;
     // S
-    Integer numberStreets;
+    private Integer numberStreets;
     // V
-    Integer numberCars;
+    private Integer numberCars;
     // F
-    Integer bonusPoints;
+    private Integer bonusPoints;
 
-    List<Street> streets;
-    List<Car> cars;
-    List<Intersection> intersections;
+    private List<Street> streets;
+    private List<Car> cars;
+    private List<Intersection> intersections;
 
 }

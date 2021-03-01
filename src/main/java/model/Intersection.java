@@ -1,14 +1,17 @@
 package model;
 
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 import java.util.List;
 
-@Value
+@Data
+@AllArgsConstructor
 public class Intersection {
 
-    Integer id;
-    List<Street> inputStreets;
-    List<Street> outputStreets;
+    private Integer id;
+    private List<Street> inputStreets;
+    private List<Street> outputStreets;
+    private Street currentLight;
 
 }
